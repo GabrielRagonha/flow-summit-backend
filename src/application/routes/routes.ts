@@ -1,6 +1,7 @@
 import { Router as ExpressRouter } from "express";
+import { userRoutes } from "./user.routes";
 
 export const setupRoutes = (router: ExpressRouter) => {
- 
-  return router;
+    userRoutes(router);
+    return router;
 };
