@@ -1,3 +1,4 @@
+import { compare } from "bcryptjs";
 import { Environment } from "../../../shared.kernel/environment";
 import { UserRepository } from "../../infrastructure/repositories/UserRepository";
 import { UserDomain } from "../UserDomain";
@@ -18,7 +19,9 @@ export class LoginUserUseCase {
                 throw new Error("User or Password is incorrect");
             }
             
-            if (userExists.password !== user.password) {
+            const passwordMatch = await compare(user.password, userExists.password)
+
+            if (!passwordMatch) {
                 throw new Error("User or Password is incorrect");
             }
             

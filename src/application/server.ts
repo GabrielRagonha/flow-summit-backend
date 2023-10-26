@@ -4,11 +4,11 @@ import { Environment } from "../shared.kernel/environment";
 
 import { setupRoutes } from "./routes/routes";
 
-const router = Router();
 
 export default class Server {
-  private readonly express: express.Application;
-  private readonly port: string = Environment.port;
+    private readonly express: express.Application;
+    private readonly port: string = Environment.port;
+    private router = Router();
 
   constructor() {
     this.express = express();
@@ -16,7 +16,7 @@ export default class Server {
   }
 
   public start = () => {
-    this.express.use(setupRoutes(router))
+    this.express.use(setupRoutes(this.router))
 
     this.express.listen(this.port, () => {
       console.log(`Servidor rodando na porta ${Environment.port} 🏆`);
