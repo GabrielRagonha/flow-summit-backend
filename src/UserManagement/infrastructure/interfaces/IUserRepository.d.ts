@@ -1,6 +1,6 @@
-import { UserDomain } from "../../domain/UserDomain";
+import { User } from "../../domain/User";
 
 export interface IUserRepository {
-    createUser(user: Omit<UserDomain, "idUser">): Promise<UserDomain>;
-    getUserByEmail(email: string): Promise<UserDomain | null>;
+    createUser(user: Omit<User, "idUser">): Promise<User>;
+    getUserByEmail(email: string): Promise<User | null>;
 }

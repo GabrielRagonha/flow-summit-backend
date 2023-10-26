@@ -1,12 +1,12 @@
 import { hash } from "bcryptjs";
 import { createPrismaClient } from "../../../shared.kernel/prisma";
-import { UserDomain } from "../../domain/UserDomain";
+import { User } from "../../domain/User";
 import { IUserRepository } from "../interfaces/IUserRepository";
 
 export class UserRepository implements IUserRepository {
     private prisma = createPrismaClient();
 
-    public async createUser(user: Omit<UserDomain, "idUser" | "createdAt" | "updatedAt">): Promise<UserDomain> {
+    public async createUser(user: Omit<User, "idUser" | "createdAt" | "updatedAt">): Promise<User> {
         const passwordCrypt = await hash(user.password, 8);
 
         const response_database = await this.prisma.user.create({
@@ -17,7 +17,7 @@ export class UserRepository implements IUserRepository {
             },
         });
 
-        return new UserDomain({
+        return new User({
             idUser: response_database.idUser,
             name: response_database.name,
             email: response_database.email,
@@ -27,7 +27,7 @@ export class UserRepository implements IUserRepository {
         });
     }
 
-    public async getUserByEmail(email: string): Promise<UserDomain | null> {
+    public async getUserByEmail(email: string): Promise<User | null> {
         const response_database = await this.prisma.user.findUnique({
             where: {
                 email: email,
@@ -38,7 +38,7 @@ export class UserRepository implements IUserRepository {
             return null;
         }
 
-        return new UserDomain({
+        return new User({
             idUser: response_database.idUser,
             name: response_database.name,
             email: response_database.email,

@@ -1,5 +1,5 @@
 
-export interface IUserDomain {
+export interface IUser {
     idUser: string;
     name: string;
     email: string;
@@ -8,7 +8,7 @@ export interface IUserDomain {
     updatedAt: Date;
 }
 
-export class UserDomain {
+export class User {
     public idUser: string;
     public name: string;
     public email: string;
@@ -16,7 +16,7 @@ export class UserDomain {
     public createdAt: Date;
     public updatedAt: Date;
 
-    constructor(user: IUserDomain) {
+    constructor(user: IUser) {
         this.idUser = user.idUser;
         this.name = user.name;
         this.email = user.email;

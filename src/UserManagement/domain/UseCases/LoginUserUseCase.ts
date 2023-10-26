@@ -1,7 +1,7 @@
 import { compare } from "bcryptjs";
 import { Environment } from "../../../shared.kernel/environment";
 import { UserRepository } from "../../infrastructure/repositories/UserRepository";
-import { UserDomain } from "../UserDomain";
+import { User } from "../User";
 import jwt from 'jsonwebtoken'
 
 export class LoginUserUseCase {
@@ -11,7 +11,7 @@ export class LoginUserUseCase {
         this.userRepository = userRepository;
     }
 
-    async execute(user: Omit<UserDomain, "idUser" | "name" | "createdAt" | "updatedAt">): Promise<string> {
+    async execute(user: Omit<User, "idUser" | "name" | "createdAt" | "updatedAt">): Promise<string> {
         try {
             const userExists = await this.userRepository.getUserByEmail(user.email);
     

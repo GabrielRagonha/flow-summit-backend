@@ -1,5 +1,5 @@
 import { UserRepository } from "../../infrastructure/repositories/UserRepository";
-import { UserDomain } from "../UserDomain";
+import { User } from "../User";
 
 export class SignUpUserUseCase {
     private userRepository: UserRepository;
@@ -8,7 +8,7 @@ export class SignUpUserUseCase {
         this.userRepository = userRepository;
     }
 
-    async execute(user: Omit<UserDomain, "idUser" | "createdAt" | "updatedAt">) {
+    async execute(user: Omit<User, "idUser" | "createdAt" | "updatedAt">) {
         try {
             const userExists = await this.userRepository.getUserByEmail(user.email);
 
