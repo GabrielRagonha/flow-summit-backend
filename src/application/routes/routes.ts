@@ -1,5 +1,6 @@
 import { Router as ExpressRouter } from "express";
 import { userRoutes } from "./user.routes";
+import { eventsRoutes } from "./events.routes";
 
 export const setupRoutes = (router: ExpressRouter) => {
 
@@ -11,6 +12,8 @@ export const setupRoutes = (router: ExpressRouter) => {
         res.send("Hello World");
     })
 
-    userRoutes(router)
+    userRoutes(router);
+    eventsRoutes(router);
+
     return router;
 };

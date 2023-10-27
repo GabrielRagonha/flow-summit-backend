@@ -1,18 +1,45 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  idUser       String        @id @default(uuid())
-  name         String
-  email        String        @unique
-  password     String
+    idUser   String @id @default(uuid())
+    name     String
+    email    String @unique
+    password String
 
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    Coordinator Coordinator?
+}
+
+model Coordinator {
+    idCoordinator String @id @default(uuid())
+    idUser        String @unique
+    institution   String
+
+    events Event[]
+
+    user User @relation(fields: [idUser], references: [idUser], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Event {
+    idEvent     String @id @default(uuid())
+    name        String
+    description String
+
+    start_date DateTime
+    end_date   DateTime
+
+    idCoordinator String
+    coordinator   Coordinator @relation(fields: [idCoordinator], references: [idCoordinator])
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
