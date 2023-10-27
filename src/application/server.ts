@@ -1,9 +1,8 @@
 import express, { Router, json } from "express";
 import { Environment } from "../shared.kernel/environment";
-
+import cors from "cors";
 
 import { setupRoutes } from "./routes/routes";
-
 
 export default class Server {
     private readonly express: express.Application;
@@ -13,6 +12,7 @@ export default class Server {
   constructor() {
     this.express = express();
     this.express.use(json());
+    this.express.use(cors());
   }
 
   public start = () => {
