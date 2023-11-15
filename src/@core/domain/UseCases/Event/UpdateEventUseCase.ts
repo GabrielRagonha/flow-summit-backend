@@ -1,5 +1,5 @@
-import { IEventsRepository } from "../../infrastructure/interfaces/IEventRepository";
-import { Event } from "../Event";
+import { IEventsRepository } from "../../../infrastructure/interfaces/IEventRepository";
+import { Event } from "../../Event";
 
 export class UpdateEventUseCase {
     private eventRepository: IEventsRepository;

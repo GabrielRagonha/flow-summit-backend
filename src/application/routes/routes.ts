@@ -1,6 +1,7 @@
 import { Router as ExpressRouter } from "express";
 import { userRoutes } from "./user.routes";
 import { eventsRoutes } from "./events.routes";
+import { scheduleRoutes } from "./shedule.routes";
 
 export const setupRoutes = (router: ExpressRouter) => {
 
@@ -14,6 +15,7 @@ export const setupRoutes = (router: ExpressRouter) => {
 
     userRoutes(router);
     eventsRoutes(router);
+    scheduleRoutes(router)
 
     return router;
 };

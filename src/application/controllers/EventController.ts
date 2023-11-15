@@ -1,4 +1,4 @@
-import { GetNextEventsOfTheMonthUseCase } from "../../@core/domain/UseCases/GetNextEventsOfTheMonthUseCase";
+import { GetNextEventsOfTheMonthUseCase } from "../../@core/domain/UseCases/Event/GetNextEventsOfTheMonthUseCase";
 import { EventRepository } from "../../@core/infrastructure/repositories/EventRepository";
 
 export class EventController {

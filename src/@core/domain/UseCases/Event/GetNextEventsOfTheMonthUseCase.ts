@@ -1,4 +1,4 @@
-import { IEventsRepository } from "../../infrastructure/interfaces/IEventRepository";
+import { IEventsRepository } from "../../../infrastructure/interfaces/IEventRepository";
 
 
 export class GetNextEventsOfTheMonthUseCase {
