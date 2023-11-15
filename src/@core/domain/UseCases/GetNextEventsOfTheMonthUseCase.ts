@@ -1,10 +1,10 @@
-import { EventRepository } from "../../infrastructure/repositories/EventRepository";
+import { IEventsRepository } from "../../infrastructure/interfaces/IEventRepository";
 
 
 export class GetNextEventsOfTheMonthUseCase {
-    private eventRepository: EventRepository;
+    private eventRepository: IEventsRepository;
 
-    constructor(eventRepository: EventRepository) {
+    constructor(eventRepository: IEventsRepository) {
         this.eventRepository = eventRepository;
     }
 
