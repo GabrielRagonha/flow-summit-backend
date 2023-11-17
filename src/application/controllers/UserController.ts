@@ -1,4 +1,5 @@
 import { GetCoodinatorUseCase } from "../../@UserManagement/domain/UseCases/GetCoodinatorUseCase";
+import { GetUserByEmailUseCase } from "../../@UserManagement/domain/UseCases/GetUserByEmailUseCase";
 import { LoginUserUseCase } from "../../@UserManagement/domain/UseCases/LoginUserUseCase";
 import { SignUpUserUseCase } from "../../@UserManagement/domain/UseCases/SignUpUserUseCase";
 import { User } from "../../@UserManagement/domain/User";
@@ -9,11 +10,15 @@ export class UserController {
     private loginUseCase: LoginUserUseCase;
     private signupUseCase: SignUpUserUseCase;
     private getCoodinatorUseCase: GetCoodinatorUseCase;
+    private getUserByEmailUseCase: GetUserByEmailUseCase;
 
     constructor() {
         this.userRepository = new UserRepository();
         this.loginUseCase = new LoginUserUseCase(this.userRepository);
         this.signupUseCase = new SignUpUserUseCase(this.userRepository);
+        this.getUserByEmailUseCase = new GetUserByEmailUseCase(
+            this.userRepository
+        );
         this.getCoodinatorUseCase = new GetCoodinatorUseCase(
             this.userRepository
         );
@@ -22,7 +27,14 @@ export class UserController {
     public async login(
         user: Omit<User, "idUser" | "name" | "createdAt" | "updatedAt">
     ) {
-        return await this.loginUseCase.execute(user);
+        const token = await this.loginUseCase.execute(user);
+        const userByEmail = await this.getUserByEmailUseCase.execute(
+            user.email
+        );
+        return {
+            token,
+            user: userByEmail,
+        };
     }
 
     public async signup(

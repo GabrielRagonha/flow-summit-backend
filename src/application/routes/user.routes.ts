@@ -8,8 +8,8 @@ export const userRoutes = (router: ExpressRouter) => {
         const { email, password } = req.body;
 
         try {
-            const token = await userController.login({ email, password });
-            return res.status(200).json({ token });
+            const userInfo = await userController.login({ email, password });
+            return res.status(200).json(userInfo);
         } catch (error: any) {
             return res.status(400).json({ error: error.message });
         }
