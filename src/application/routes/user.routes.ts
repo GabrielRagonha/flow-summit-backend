@@ -10,7 +10,6 @@ export const userRoutes = (router: ExpressRouter) => {
         try {
             const token = await userController.login({ email, password });
             return res.status(200).json({ token });
-            
         } catch (error: any) {
             return res.status(400).json({ error: error.message });
         }
@@ -20,9 +19,23 @@ export const userRoutes = (router: ExpressRouter) => {
         const { name, email, password } = req.body;
 
         try {
-            const token = await userController.signup({ name, email, password });
-            return res.status(200).json({ "joia": "joia👍" });
-            
+            const token = await userController.signup({
+                name,
+                email,
+                password,
+            });
+            return res.status(200).json({ joia: "joia👍" });
+        } catch (error: any) {
+            return res.status(400).json({ error: error.message });
+        }
+    });
+
+    router.get("/user_coodinator/:userId", async (req, res) => {
+        try {
+            const coordinator = await userController.getCoordinator(
+                req.params.userId
+            );
+            return res.status(200).json({ coordinator });
         } catch (error: any) {
             return res.status(400).json({ error: error.message });
         }

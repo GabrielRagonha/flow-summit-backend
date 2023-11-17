@@ -1,3 +1,4 @@
+import { GetCoodinatorUseCase } from "../../@UserManagement/domain/UseCases/GetCoodinatorUseCase";
 import { LoginUserUseCase } from "../../@UserManagement/domain/UseCases/LoginUserUseCase";
 import { SignUpUserUseCase } from "../../@UserManagement/domain/UseCases/SignUpUserUseCase";
 import { User } from "../../@UserManagement/domain/User";
@@ -7,11 +8,15 @@ export class UserController {
     private userRepository: UserRepository;
     private loginUseCase: LoginUserUseCase;
     private signupUseCase: SignUpUserUseCase;
+    private getCoodinatorUseCase: GetCoodinatorUseCase;
 
     constructor() {
         this.userRepository = new UserRepository();
         this.loginUseCase = new LoginUserUseCase(this.userRepository);
         this.signupUseCase = new SignUpUserUseCase(this.userRepository);
+        this.getCoodinatorUseCase = new GetCoodinatorUseCase(
+            this.userRepository
+        );
     }
 
     public async login(
@@ -24,5 +29,9 @@ export class UserController {
         user: Omit<User, "idUser" | "createdAt" | "updatedAt">
     ) {
         return await this.signupUseCase.execute(user);
+    }
+
+    public async getCoordinator(userId: string) {
+        return await this.getCoodinatorUseCase.execute(userId);
     }
 }
