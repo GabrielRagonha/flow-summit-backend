@@ -1,11 +1,12 @@
 import { Router as ExpressRouter } from "express";
 import { EventController } from "../controllers/EventController";
 import { allowCoordinatorsMiddleware } from "../middlewares/allowCoordinatorsMiddleware";
+import { isAuthenticate } from "../middlewares/authMiddleware";
 
 export const eventsRoutes = (router: ExpressRouter) => {
     const userController = new EventController();
 
-    router.get("/events", async (req, res) => {
+    router.get("/events", isAuthenticate, async (req, res) => {
         try {
             const events = await userController.getNextEventsOfTheMonth();
             res.json(events);
@@ -14,7 +15,7 @@ export const eventsRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.get("/events_all", async (req, res) => {
+    router.get("/events_all", isAuthenticate, async (req, res) => {
         try {
             const events = await userController.getAllEvents();
             res.json(events);
@@ -23,7 +24,7 @@ export const eventsRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.get("/events/:idEvent", async (req, res) => {
+    router.get("/events/:idEvent", isAuthenticate, async (req, res) => {
         try {
             const events = await userController.getEventById(req.params.idEvent);
             res.json(events);
@@ -32,7 +33,7 @@ export const eventsRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.post("/events", allowCoordinatorsMiddleware, async (req, res) => {
+    router.post("/events", isAuthenticate, allowCoordinatorsMiddleware, async (req, res) => {
         try {
             const event = await userController.createEvent(req.body);
             res.json(event);
@@ -41,7 +42,7 @@ export const eventsRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.put("/events", allowCoordinatorsMiddleware, async (req, res) => {
+    router.put("/events", isAuthenticate, allowCoordinatorsMiddleware, async (req, res) => {
         try {
             const event = await userController.updateEvent(req.body);
             res.json(event);
@@ -50,7 +51,7 @@ export const eventsRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.delete("/events/:idEvent", allowCoordinatorsMiddleware, async (req, res) => {
+    router.delete("/events/:idEvent", isAuthenticate, allowCoordinatorsMiddleware, async (req, res) => {
         try {
             const event = await userController.deleteEvent(req.params.idEvent);
             res.json(event);

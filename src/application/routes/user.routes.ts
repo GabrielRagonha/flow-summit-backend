@@ -1,5 +1,6 @@
 import { Router as ExpressRouter } from "express";
 import { UserController } from "../controllers/UserController";
+import { isAuthenticate } from "../middlewares/authMiddleware";
 
 export const userRoutes = (router: ExpressRouter) => {
     const userController = new UserController();
@@ -30,7 +31,7 @@ export const userRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.get("/user_coodinator/:userId", async (req, res) => {
+    router.get("/user_coodinator/:userId", isAuthenticate, async (req, res) => {
         try {
             const coordinator = await userController.getCoordinator(
                 req.params.userId

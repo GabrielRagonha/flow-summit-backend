@@ -1,10 +1,11 @@
 import { Router as ExpressRouter } from "express";
 import { ScheduleUserController } from "../controllers/SheduleUserController";
+import { isAuthenticate } from "../middlewares/authMiddleware";
 
 export const scheduleRoutes = (router: ExpressRouter) => {
     const scheduleUserController = new ScheduleUserController();
 
-    router.get("/schedules_all", async (req, res) => {
+    router.get("/schedules_all", isAuthenticate, async (req, res) => {
         try {
             const schedules = await scheduleUserController.getAllSchedules();
             res.json(schedules);
@@ -13,7 +14,7 @@ export const scheduleRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.get("/schedules/:idScheduleUser", async (req, res) => {
+    router.get("/schedules/:idScheduleUser", isAuthenticate, async (req, res) => {
         try {
             const schedule = await scheduleUserController.getScheduleById(
                 req.params.idScheduleUser
@@ -24,7 +25,7 @@ export const scheduleRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.post("/schedules", async (req, res) => {
+    router.post("/schedules", isAuthenticate, async (req, res) => {
         try {
             const schedule = await scheduleUserController.createSchedule(
                 req.body
@@ -35,7 +36,7 @@ export const scheduleRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.put("/schedules", async (req, res) => {
+    router.put("/schedules", isAuthenticate, async (req, res) => {
         try {
             const schedule = await scheduleUserController.updateSchedule(
                 req.body
@@ -46,7 +47,7 @@ export const scheduleRoutes = (router: ExpressRouter) => {
         }
     });
 
-    router.delete("/schedules/:idScheduleUser", async (req, res) => {
+    router.delete("/schedules/:idScheduleUser", isAuthenticate, async (req, res) => {
         try {
             await scheduleUserController.deleteSchedule(
                 req.params.idScheduleUser
