@@ -18,7 +18,8 @@ async function isAuthenticate(
     }
 
     try {
-        verify(authToken, Environment.jwt_secret);
+        const [, token] = authToken.split(" "); 
+        verify(token, Environment.jwt_secret);
         return next();
     } catch (error) {
         return response

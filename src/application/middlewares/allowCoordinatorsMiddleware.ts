@@ -8,7 +8,7 @@ export async function allowCoordinatorsMiddleware(
 ) {
     const prisma = createPrismaClient();
 
-    const { idCoordinator } = req.body;
+    const {idCoordinator} = req.body;
 
     const user = await prisma.coordinator.findUnique({
         where: {

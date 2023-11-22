@@ -41,8 +41,6 @@ export class EventRepository implements IEventsRepository {
     public async create(
         event: Omit<Event, "idEvent" | "createdAt" | "updatedAt">
     ): Promise<Event> {
-        console.log(event);
-
         const newEvent = await this.prisma.event.create({
             data: {
                 name: event.name,

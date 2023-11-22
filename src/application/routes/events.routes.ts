@@ -34,6 +34,8 @@ export const eventsRoutes = (router: ExpressRouter) => {
     });
 
     router.post("/events", isAuthenticate, allowCoordinatorsMiddleware, async (req, res) => {
+        console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaa")
+        console.log(req.body)
         try {
             const event = await userController.createEvent(req.body);
             res.json(event);
